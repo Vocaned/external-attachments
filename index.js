@@ -10,7 +10,7 @@ class ExternalAttachments extends Plugin {
             command: 'attachment',
             aliases: ['upload'],
             description: 'Adds an attachment from an url.',
-            usage: '{c} [URL]',
+            usage: '{c} [URL] (filename)',
             executor: args => this.upload(args)
         });
     }
@@ -19,10 +19,13 @@ class ExternalAttachments extends Plugin {
         const uploads = await getModule(['setUploads']);
         const channelId = channels.getChannelId()
 
-        let uri = args.join(' ');
+        let uri = args[0];
         let request = await get(encodeURI(uri));
-        let filename = uri.match(/(?:.+\/)([^#?]+)/)[1];
         let contentType = request.headers['content-type'] || '';
+
+        let filename;
+        if (args.length > 1) filename = args[1];
+        else filename = uri.match(/(?:.+\/)([^#?]+)/)[1];
 
         uploads.addFiles({
             channelId: channelId,
