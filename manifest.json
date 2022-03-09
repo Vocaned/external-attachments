@@ -1,0 +1,8 @@
+{
+	"name": "External Attachments",
+	"version": "1.0.0",
+	"description": "Upload files to Discord from an URL",
+	"author": "Fam0r#4200",
+	"license": "Unlicense",
+	"nsfw": false
+}
